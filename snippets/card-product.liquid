@@ -102,8 +102,36 @@
       </div>
       <div class="card__content">
         <div class="card__information">
-          <h3 class="card__heading{% if card_product.featured_media or settings.card_style == 'standard' %} h5{% endif %}"{% if card_product.featured_media or settings.card_style == 'card' %} id="title-{{ section_id }}-{{ card_product.id }}"{% endif %}>
-            <a href="{{ card_product.url }}" id="CardLink-{{ section_id }}-{{ card_product.id }}" class="full-unstyled-link" aria-labelledby="CardLink-{{ section_id }}-{{ card_product.id }} Badge-{{ section_id }}-{{ card_product.id }}">
+          {% comment %} Swatches Start {% endcomment %}
+          {% assign colors = "Color,color" | split: ',' %}
+          {% for color in colors %}
+            {% if card_product.options contains color %}
+              <div class="product_card_color_holder">
+                {% for color_option in card_product.options_by_name[color].values %}
+                  {% for variant in card_product.variants  %}
+                    {% if variant.options contains color_option %}
+                      
+                      {% if variant.image %}
+                        {% assign background_style = color_option %}
+                      {% endif %}
+                    {% endif %}
+                  {% endfor %}
+                <input
+                      type="radio"
+                      name="{{ card_product.id }}_card_color"
+                      id="{{ card_product.id }}_color_{{ forloop.index }}"
+                      style="background: {{ background_style }}; background-size: cover;">
+                {% endfor %}
+              </div>
+            {% endif %}
+          {% endfor %}
+          {% comment %} Swatches End {% endcomment %}
+
+          {% comment %} Company Name {% endcomment %}
+          <p class="brand-company text-sm neutral-950 text-one">{{ card_product.metafields.custom.company }}</p>
+
+          <h3 class="card__heading {% if card_product.featured_media or settings.card_style == 'standard' %} h5{% endif %}"{% if card_product.featured_media or settings.card_style == 'card' %} id="title-{{ section_id }}-{{ card_product.id }}"{% endif %}>
+            <a href="{{ card_product.url }}" id="CardLink-{{ section_id }}-{{ card_product.id }}" class="sky-900 full-unstyled-link" aria-labelledby="CardLink-{{ section_id }}-{{ card_product.id }} Badge-{{ section_id }}-{{ card_product.id }}">
               {{ card_product.title | escape }}
             </a>
           </h3>

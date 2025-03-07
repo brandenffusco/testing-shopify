@@ -1,1 +1,7 @@
 @import "tailwindcss";
+
+@theme {
+    --text-sm: '14px';
+    --text-sm--line-height: '16px';
+    --color-one: #111;
+}

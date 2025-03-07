@@ -668,7 +668,8 @@ hr {
 
 .full-unstyled-link {
   text-decoration: none;
-  color: currentColor;
+  color: #0A4874;
+  font-size: 16px;
   display: block;
 }
 
@@ -2885,4 +2886,13 @@ details-disclosure > details {
 
 .font-body-bold {
   font-weight: var(--font-body-weight-bold);
+}
+
+input[type=radio][name$=_card_color]{
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  appearance: none;
+  background-size: 9px 9px;
+  background-image: repeating-linear-gradient(45deg, #000 0, #000 1px, #ebebeb 0, #ebebeb 50%);
 }

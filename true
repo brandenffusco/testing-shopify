@@ -7,13 +7,9 @@
     --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
       "Courier New", monospace;
     --color-red-500: oklch(0.637 0.237 25.331);
-    --color-red-600: oklch(0.577 0.245 27.325);
     --spacing: 0.25rem;
-    --text-sm: '14px';
-    --text-sm--line-height: '16px';
-    --text-3xl: 1.875rem;
-    --text-3xl--line-height: calc(2.25 / 1.875);
-    --font-weight-bold: 700;
+    --text-sm: 0.875rem;
+    --text-sm--line-height: calc(1.25 / 0.875);
     --ease-in: cubic-bezier(0.4, 0, 1, 1);
     --ease-out: cubic-bezier(0, 0, 0.2, 1);
     --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
@@ -31,7 +27,6 @@
     --default-mono-font-variation-settings: var(
       --font-mono--font-variation-settings
     );
-    --color-one: #111;
   }
 }
 @layer base {
@@ -346,15 +341,6 @@
     @media (width >= 96rem) {
       max-width: 96rem !important;
     }
-  }
-  .mt-0 {
-    margin-top: calc(var(--spacing) * 0);
-  }
-  .mr-3 {
-    margin-right: calc(var(--spacing) * 3);
-  }
-  .mr-8 {
-    margin-right: calc(var(--spacing) * 8);
   }
   .box-border {
     box-sizing: border-box;
@@ -1248,9 +1234,6 @@
   .object-top {
     object-position: top;
   }
-  .pr-10 {
-    padding-right: calc(var(--spacing) * 10);
-  }
   .text-center {
     text-align: center;
   }
@@ -1293,10 +1276,6 @@
   .align-top {
     vertical-align: top;
   }
-  .text-3xl {
-    font-size: var(--text-3xl);
-    line-height: var(--tw-leading, var(--text-3xl--line-height));
-  }
   .text-sm {
     font-size: var(--text-sm);
     line-height: var(--tw-leading, var(--text-sm--line-height));
@@ -1304,10 +1283,6 @@
   .leading-none {
     --tw-leading: 1;
     line-height: 1;
-  }
-  .font-bold {
-    --tw-font-weight: var(--font-weight-bold);
-    font-weight: var(--font-weight-bold);
   }
   .text-balance {
     text-wrap: balance;
@@ -1381,12 +1356,6 @@
   }
   .\[color\:red\]\/50\! {
     color: color-mix(in oklab, red 50%, transparent) !important;
-  }
-  .text-one {
-    color: var(--color-one);
-  }
-  .text-red-600 {
-    color: var(--color-red-600);
   }
   .capitalize {
     text-transform: capitalize;
@@ -1928,10 +1897,6 @@
   initial-value: 0;
 }
 @property --tw-leading {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-font-weight {
   syntax: "*";
   inherits: false;
 }

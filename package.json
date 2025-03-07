@@ -10,7 +10,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "shopify theme dev",
-    "watch": "npx tailwind -i ./assets/tailwind.css -o ./assets/application.css --watch",
+    "watch": "npx @tailwindcss/cli -i ./assets/branden.css -o ./assets/output.css --watch",
     "dev": "npm run watch & npm run start"
   },
   "repository": {
