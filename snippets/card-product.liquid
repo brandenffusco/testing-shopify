@@ -74,7 +74,7 @@
                   src="{{ card_product.media[1] | image_url: width: 533 }}"
                   sizes="(min-width: {{ settings.page_width }}px) {{ settings.page_width | minus: 130 | divided_by: 4 }}px, (min-width: 990px) calc((100vw - 130px) / 4), (min-width: 750px) calc((100vw - 120px) / 3), calc((100vw - 35px) / 2)"
                   alt=""
-                  class="motion-reduce"
+                  class="motion-reduce alt-image"
                   loading="lazy"
                   width="{{ card_product.media[1].width }}"
                   height="{{ card_product.media[1].height }}"
@@ -102,8 +102,42 @@
       </div>
       <div class="card__content">
         <div class="card__information">
-          <h3 class="card__heading{% if card_product.featured_media or settings.card_style == 'standard' %} h5{% endif %}"{% if card_product.featured_media or settings.card_style == 'card' %} id="title-{{ section_id }}-{{ card_product.id }}"{% endif %}>
-            <a href="{{ card_product.url }}" id="CardLink-{{ section_id }}-{{ card_product.id }}" class="full-unstyled-link" aria-labelledby="CardLink-{{ section_id }}-{{ card_product.id }} Badge-{{ section_id }}-{{ card_product.id }}">
+          <div class="option-colors">
+          {% comment %} Swatches Start {% endcomment %}
+          {% assign colors = "Color,color" | split: ',' %}
+          {% for color in colors %}
+            {% if card_product.options contains color %}
+              <div class="product_card_color_holder">
+                {% for color_option in card_product.options_by_name[color].values %}
+                  {% for variant in card_product.variants  %}
+                    {% if variant.options contains color_option %}
+                      {%- assign productColorOptionURL = product.url | append: "?variant=" | append: variant.id -%}
+                      {%- assign variantImgSrc = variant.image.src | img_url: '300x400', scale: 3, crop: 'center' -%}
+                      {%- assign variantImgAlt = variant.metafields.custom.hoverimage | img_url: '300x400', scale: 3, crop: 'center' -%}
+
+                      {% if variant.image %}
+                        {% assign background_style = color_option %}
+                      {% endif %}
+                    {% endif %}
+                  {% endfor %}
+                  <span class="swatcher-container">
+                    {%- if forloop.index == 1 -%}
+                      <a href="{{ productColorOptionURL }}" data-variant-img="{{variantImgSrc}}" data-variant-img-two="{{ variantImgAlt }}" style="display: inline-block; background: {{ background_style }}; background-size: cover;" class="swatcher active-variant"></a>
+                    {%- else -%}
+                      <a href="{{ productColorOptionURL }}" data-variant-img="{{variantImgSrc}}" data-variant-img-two="{{ variantImgAlt }}" style="display: inline-block; background: {{ background_style }}; background-size: cover;" class="swatcher"></a>
+                    {%- endif -%}
+                  </span>
+                {% endfor %}
+              </div>
+            {% endif %}
+          {% endfor %}
+          {% comment %} Swatches End {% endcomment %}
+
+          {% comment %} Company Name {% endcomment %}
+          <p class="brand-company text-sm neutral-950 text-one">{{ card_product.metafields.custom.company }}</p>
+
+          <h3 class="card__heading {% if card_product.featured_media or settings.card_style == 'standard' %} h5{% endif %}"{% if card_product.featured_media or settings.card_style == 'card' %} id="title-{{ section_id }}-{{ card_product.id }}"{% endif %}>
+            <a href="{{ card_product.url }}" id="CardLink-{{ section_id }}-{{ card_product.id }}" class="sky-900 full-unstyled-link" aria-labelledby="CardLink-{{ section_id }}-{{ card_product.id }} Badge-{{ section_id }}-{{ card_product.id }}">
               {{ card_product.title | escape }}
             </a>
           </h3>
