@@ -2888,11 +2888,21 @@ details-disclosure > details {
   font-weight: var(--font-body-weight-bold);
 }
 
-input[type=radio][name$=_card_color]{
+
+
+.swatcher{
   width: 20px;
   height: 20px;
   border-radius: 50%;
+  padding: 2px;
   appearance: none;
   background-size: 9px 9px;
   background-image: repeating-linear-gradient(45deg, #000 0, #000 1px, #ebebeb 0, #ebebeb 50%);
+
+  &:hover,
+  &.active-variant {
+    border: 1px solid #fff;
+    box-shadow: 0 0 0 2px #0A4874;
+  }
+  
 }

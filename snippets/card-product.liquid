@@ -74,7 +74,7 @@
                   src="{{ card_product.media[1] | image_url: width: 533 }}"
                   sizes="(min-width: {{ settings.page_width }}px) {{ settings.page_width | minus: 130 | divided_by: 4 }}px, (min-width: 990px) calc((100vw - 130px) / 4), (min-width: 750px) calc((100vw - 120px) / 3), calc((100vw - 35px) / 2)"
                   alt=""
-                  class="motion-reduce"
+                  class="motion-reduce alt-image"
                   loading="lazy"
                   width="{{ card_product.media[1].width }}"
                   height="{{ card_product.media[1].height }}"
@@ -102,6 +102,7 @@
       </div>
       <div class="card__content">
         <div class="card__information">
+          <div class="option-colors">
           {% comment %} Swatches Start {% endcomment %}
           {% assign colors = "Color,color" | split: ',' %}
           {% for color in colors %}
@@ -110,17 +111,22 @@
                 {% for color_option in card_product.options_by_name[color].values %}
                   {% for variant in card_product.variants  %}
                     {% if variant.options contains color_option %}
-                      
+                      {%- assign productColorOptionURL = product.url | append: "?variant=" | append: variant.id -%}
+                      {%- assign variantImgSrc = variant.image.src | img_url: '300x400', scale: 3, crop: 'center' -%}
+                      {%- assign variantImgAlt = variant.metafields.custom.hoverimage | img_url: '300x400', scale: 3, crop: 'center' -%}
+
                       {% if variant.image %}
                         {% assign background_style = color_option %}
                       {% endif %}
                     {% endif %}
                   {% endfor %}
-                <input
-                      type="radio"
-                      name="{{ card_product.id }}_card_color"
-                      id="{{ card_product.id }}_color_{{ forloop.index }}"
-                      style="background: {{ background_style }}; background-size: cover;">
+                  <span class="swatcher-container">
+                    {%- if forloop.index == 1 -%}
+                      <a href="{{ productColorOptionURL }}" data-variant-img="{{variantImgSrc}}" data-variant-img-two="{{ variantImgAlt }}" style="display: inline-block; background: {{ background_style }}; background-size: cover;" class="swatcher active-variant"></a>
+                    {%- else -%}
+                      <a href="{{ productColorOptionURL }}" data-variant-img="{{variantImgSrc}}" data-variant-img-two="{{ variantImgAlt }}" style="display: inline-block; background: {{ background_style }}; background-size: cover;" class="swatcher"></a>
+                    {%- endif -%}
+                  </span>
                 {% endfor %}
               </div>
             {% endif %}
